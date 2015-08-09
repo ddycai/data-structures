@@ -34,6 +34,13 @@ public class HashTableTest {
   }
 
   @Test
+  public void testRemove() {
+    assertTrue(dict.containsKey("hello"));
+    dict.remove("hello");
+    assertFalse(dict.containsKey("hello"));
+  }
+
+  @Test
   public void testContainsValue() {
     assertTrue(dict.containsValue("world"));
     assertTrue(dict.containsValue("World"));
@@ -55,5 +62,9 @@ public class HashTableTest {
     assertEquals(1, dict.size());
     dict.put("one", "last time");
     assertEquals(2, dict.size());
+    dict.remove("duncan");
+    assertEquals(1, dict.size());
+    dict.remove("duncan");
+    assertEquals(1, dict.size());
   }
 }

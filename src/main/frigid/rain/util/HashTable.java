@@ -3,6 +3,7 @@ package frigid.rain.util;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Iterator;
 
 /**
  * Implementation of a map as a hash table.
@@ -42,6 +43,7 @@ public class HashTable<K, V> implements SimpleMap<K, V> {
     for (Entry<K, V> entry : list) {
       if (entry.getKey().equals(key)) {
         entry.setValue(value);
+        return;
       }
     }
     list.add(new Entry<K, V>(key, value));
@@ -49,23 +51,24 @@ public class HashTable<K, V> implements SimpleMap<K, V> {
   }
 
   public V get(K key) {
-    Iterable<Entry<K, V>> list = table.get(hash(key));
-    for (Entry<K, V> entry : list) {
+    Entry<K, V> entry = findEntry(key);
+    return entry == null ? null : entry.getValue();
+  }
+
+  public void remove(K key) {
+    Iterator<Entry<K, V>> it = table.get(hash(key)).iterator();
+    while (it.hasNext()) {
+      Entry<K, V> entry = it.next();
       if (entry.getKey().equals(key)) {
-        return entry.getValue();
+        it.remove();
+        size--;
+        return;
       }
     }
-    return null;
   }
 
   public boolean containsKey(K key) {
-    Iterable<Entry<K, V>> list = table.get(hash(key));
-    for (Entry<K, V> entry : list) {
-      if (entry.getKey().equals(key)) {
-        return true;
-      }
-    }
-    return false;
+    return findEntry(key) != null;
   }
 
   /**
@@ -89,6 +92,16 @@ public class HashTable<K, V> implements SimpleMap<K, V> {
   private int hash(K key) {
     // The bit mask here is to remove the sign bit.
     return (key.hashCode() & 0x7fffffff) % M;
+  }
+
+  private Entry<K, V> findEntry(K key) {
+    Iterable<Entry<K, V>> list = table.get(hash(key));
+    for (Entry<K, V> entry : list) {
+      if (entry.getKey().equals(key)) {
+        return entry;
+      }
+    }
+    return null;
   }
 
   private static class Entry<K, V> {
