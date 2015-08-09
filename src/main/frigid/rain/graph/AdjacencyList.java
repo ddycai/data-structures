@@ -14,7 +14,7 @@ import frigid.rain.util.HashTable;
  */
 public class AdjacencyList<V> implements Graph<V> {
 
-  HashTable<V, List<V>> adj;
+  private HashTable<V, List<V>> adj;
 
   public AdjacencyList(int M) {
     adj = new HashTable<>(M);
