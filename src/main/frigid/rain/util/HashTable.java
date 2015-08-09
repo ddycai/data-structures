@@ -23,6 +23,9 @@ public class HashTable<K, V> implements SimpleMap<K, V> {
   // This is the size of the hash table.
   private int M;
 
+  // This is the number of keys contained.
+  private int size;
+
   /**
    * @param M the size of the hash table (should be prime number)
    */
@@ -42,6 +45,7 @@ public class HashTable<K, V> implements SimpleMap<K, V> {
       }
     }
     list.add(new Entry<K, V>(key, value));
+    size++;
   }
 
   public V get(K key) {
@@ -76,6 +80,10 @@ public class HashTable<K, V> implements SimpleMap<K, V> {
       }
     }
     return false;
+  }
+
+  public int size() {
+    return size;
   }
 
   private int hash(K key) {

@@ -46,4 +46,14 @@ public class HashTableTest {
     dict.put("hello", "kitty");
     assertEquals("kitty", dict.get("hello"));
   }
+
+  @Test
+  public void testSize() {
+    dict = new HashTable<>(31);
+    assertEquals(0, dict.size());
+    dict.put("duncan", "is a person.");
+    assertEquals(1, dict.size());
+    dict.put("one", "last time");
+    assertEquals(2, dict.size());
+  }
 }

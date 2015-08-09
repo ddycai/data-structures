@@ -11,4 +11,6 @@ public interface SimpleMap<K, V> {
   public boolean containsKey(K key);
 
   public boolean containsValue(V value);
+
+  public int size();
 }
