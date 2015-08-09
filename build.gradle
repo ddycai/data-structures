@@ -1,0 +1,18 @@
+apply plugin: 'java'
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  testCompile group: 'junit', name: 'junit', version: '4.+'
+}
+
+sourceSets {
+  main.java.srcDir "src/main"
+  test.java.srcDir "src/test"
+}
+
+jar {
+  manifest.attributes "Main-Class": "frigid.rain.util.HashTable"
+}
