@@ -1,4 +1,5 @@
 # Data Structres & Algorithms Practice
 
-My attempts at implementing various data structures and algorithms for practice.
-I am not trying to reinvent the wheel.
+My implementation of various data structures and algorithms for practice.
+
+A Gradle build file is included. I am mainly using it to run my unit tests.
