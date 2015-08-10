@@ -7,6 +7,8 @@ import java.util.Queue;
 
 /**
  * Implementation of a trie.
+ *
+ * Based on implementation from Algorithms by Sedgewick and Wayne.
  */
 public class Trie<V> implements StringMap<V> {
   // The size of the alphabet.
@@ -133,7 +135,7 @@ public class Trie<V> implements StringMap<V> {
       return true;
     }
     for (Node<V> y : x.next) {
-      if (dfs(y, target)) {
+      if (y != null && dfs(y, target)) {
         return true;
       }
     }
@@ -142,7 +144,40 @@ public class Trie<V> implements StringMap<V> {
 
   @Override
   public void remove(String key) {
-    // Not implemented.
+    remove(root, key, 0);
+  }
+
+  /**
+   * We do a search for the key. When we are backtracking in the recursion, we
+   * unset the pointers along the path until we hit a node that contains a
+   * value. We stop removing pointers after this pointer because the path
+   * belongs to another word which is a prefix of the key we are trying to
+   * remove.
+   *
+   * In the backtracking phase, remove returns if the child wants the parent to
+   * remove its pointer.
+   */
+  private boolean remove(Node<V> x, String key, int d) {
+    if (x == null) {
+      return false;
+    }
+    // Base case: found the key, now tell parent to remove the link.
+    if (key.length() == d) {
+      size--;
+      return true;
+    }
+    // Recursive step: keep looking.
+    // If the child returns true, remove its pointer.
+    char c = key.charAt(d);
+    if (remove(x.next.get(c), key, d + 1)) {
+      x.next.set(c, null);
+      // If this node is empty, tell parent to remove this pointer.
+      if (x.value == null) {
+        return true;
+      }
+    }
+    // If the child tells you not to remove, then propogate up.
+    return false;
   }
 
   @Override

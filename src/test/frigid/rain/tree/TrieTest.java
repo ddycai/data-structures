@@ -1,6 +1,6 @@
 package frigid.rain.tree;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
@@ -14,11 +14,11 @@ import org.junit.runners.JUnit4;
 public class TrieTest {
 
   public Trie<Integer> dict;
+  final static String[] text = { "she", "sells", "sea", "shells", "by", "the", "seashore" };
 
   @Before
   public void setUp() {
     dict = new Trie<>();
-    String[] text = { "she", "sells", "sea", "shells", "by", "the", "seashore" };
     for (int i = 0; i < text.length; i++) {
       dict.put(text[i], i);
     }
@@ -52,6 +52,35 @@ public class TrieTest {
   }
 
   @Test
+  public void testContainsValue() {
+    for (int i = 0; i < text.length; i++) {
+      assertTrue(dict.containsValue(i));
+    }
+    assertFalse(dict.containsValue(text.length));
+    assertFalse(dict.containsValue(-1));
+  }
+
+  @Test
+  public void testContainsKey() {
+    for (int i = 0; i < text.length; i++) {
+      assertTrue(dict.containsKey(text[i]));
+    }
+    assertFalse(dict.containsKey("shesells"));
+    assertFalse(dict.containsKey("seas"));
+  }
+
+  @Test
+  public void testRemove() {
+    assertTrue(dict.containsKey("sea"));
+    dict.remove("sea");
+    assertFalse(dict.containsKey("sea"));
+
+    assertFalse(dict.containsKey("seas"));
+    dict.remove("seas");
+    assertFalse(dict.containsKey("seas"));
+  }
+
+  @Test
   public void testSize() {
     dict = new Trie<>();
     assertEquals(0, dict.size());
@@ -59,6 +88,10 @@ public class TrieTest {
     assertEquals(1, dict.size());
     dict.put("shells", 11);
     assertEquals(2, dict.size());
+    dict.remove("she");
+    assertEquals(1, dict.size());
+    dict.remove("shell");
+    assertEquals(1, dict.size());
   }
 
   private ArrayList<String> newArrayList(String ... values) {
