@@ -1,3 +1,5 @@
+package frigid.rain.graph;
+
 import static org.junit.Assert.*;
 
 import org.junit.Before;

@@ -17,7 +17,7 @@ import java.util.Iterator;
  * I'm using the Java standard library for {@link ArrayList} and {@link LinkedList}.
  */
 
-public class HashTable<K, V> implements SimpleMap<K, V> {
+public class HashTable<K, V> implements Map<K, V> {
 
   private List<List<Entry<K, V>>> table;
 

@@ -1,4 +1,5 @@
 apply plugin: 'java'
+apply plugin: 'eclipse'
 
 repositories {
   mavenCentral()
@@ -13,5 +14,12 @@ sourceSets {
   test.java.srcDir "src/test"
 }
 
+gradle.projectsEvaluated {
+  tasks.withType(JavaCompile) {
+    options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+  }
+}
+
 jar {
+  manifest.attributes "Main-Class": "frigid.rain.Main"
 }

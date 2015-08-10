@@ -1,3 +1,5 @@
+package frigid.rain.util;
+
 import static org.junit.Assert.*;
 
 import org.junit.Before;
@@ -6,13 +8,13 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import frigid.rain.util.HashTable;
-import frigid.rain.util.SimpleMap;
+import frigid.rain.util.Map;
 
 /** Unit tests for {@link HashTable}. */
 @RunWith(JUnit4.class)
 public class HashTableTest {
 
-  public SimpleMap<String, String> dict;
+  public Map<String, String> dict;
 
   @Before public void setUp() {
     dict = new HashTable<>(31);
