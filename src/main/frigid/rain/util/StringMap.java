@@ -1,6 +1,4 @@
-package frigid.rain.tree;
-
-import frigid.rain.util.Map;
+package frigid.rain.util;
 
 /**
  * Maps Strings to a value.

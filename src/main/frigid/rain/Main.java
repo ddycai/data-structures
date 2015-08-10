@@ -1,6 +1,6 @@
 package frigid.rain;
 
-import frigid.rain.tree.Trie;
+import frigid.rain.util.Trie;
 
 /**
  * Mainly for debugging purposes.

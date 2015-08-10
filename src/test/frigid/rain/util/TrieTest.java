@@ -1,4 +1,4 @@
-package frigid.rain.tree;
+package frigid.rain.util;
 
 import static org.junit.Assert.*;
 
@@ -49,6 +49,16 @@ public class TrieTest {
     assertEquals(newArrayList("the"), dict.keysWithPrefix("th"));
     assertEquals(newArrayList(), dict.keysWithPrefix("p"));
     assertEquals(newArrayList(), dict.keysWithPrefix("bye"));
+  }
+
+  @Test
+  public void testLongestPrefixOf() {
+    assertEquals("shells", dict.longestPrefixOf("shellshock"));
+    assertEquals("she", dict.longestPrefixOf("shellder"));
+    assertEquals("sea", dict.longestPrefixOf("seashells"));
+    assertEquals("", dict.longestPrefixOf("lullaby"));
+    assertEquals("the", dict.longestPrefixOf("therapy"));
+    assertEquals("", dict.longestPrefixOf("thin"));
   }
 
   @Test

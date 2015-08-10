@@ -7,9 +7,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import frigid.rain.util.HashTable;
-import frigid.rain.util.Map;
-
 /** Unit tests for {@link HashTable}. */
 @RunWith(JUnit4.class)
 public class HashTableTest {

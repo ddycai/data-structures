@@ -1,4 +1,4 @@
-package frigid.rain.tree;
+package frigid.rain.util;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -8,16 +8,32 @@ import java.util.Queue;
 /**
  * Implementation of a trie.
  *
+ * Tries are used to implement a map from Strings to some value.
+ * Using properties of strings, they can do special string operations that hash
+ * tables are not able to do efficiently. For example:
+ *
+ *  * keysWithPrefix
+ *  * longestPrefixOf
+ *
+ * They are also more space efficient than hash tables when we are storing a
+ * large number of strings since a trie can collapse strings which share the
+ * same prefix whereas a hash table must store 1 copy of every string.
+ *
+ * The worst case performance of a lookup in trie is the length of the longest
+ * string. If this is small compared to the text, then we can consider this
+ * constant time.
+ *
  * Based on implementation from Algorithms by Sedgewick and Wayne.
  */
 public class Trie<V> implements StringMap<V> {
   // The size of the alphabet.
   private static int N = 256;
   private Node<V> root;
-  private int size = 0;
+  private int size;
 
   public Trie() {
     root = new Node<V>();
+    size = 0;
   }
 
   @Override
@@ -91,10 +107,31 @@ public class Trie<V> implements StringMap<V> {
     return strings;
   }
 
+  /**
+   * Returns the key that is the longest prefix of the given string.
+   */
   @Override
   public String longestPrefixOf(String s) {
-    // Not implemented.
-    return null;
+    return s.substring(0, longestPrefixOf(root, s, 0));
+  }
+
+  private int longestPrefixOf(Node<V> x, String s, int d) {
+    // Base case: we've reached a null node. Return the prefix so far.
+    if (x == null) {
+      return 0;
+    }
+    int result = 0;
+    if (x.value != null) {
+      result = d;
+    }
+
+    // If we're at the end of the word, return. If not, recursive call.
+    if (s.length() == d) {
+      return result;
+    } else {
+      return Math.max(result, longestPrefixOf(x.next.get(s.charAt(d)), s, 
+            d + 1));
+    }
   }
 
   /**
