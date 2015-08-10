@@ -21,25 +21,25 @@ public class AdjacencyList<V> implements Graph<V> {
   }
 
   public void addEdge(V v, V w) {
-    check(v);
-    check(w);
+    addIfNotExists(v);
+    addIfNotExists(w);
     adj.get(v).add(w);
     adj.get(w).add(v);
   }
 
   public boolean hasEdge(V v, V w) {
-    check(v);
-    check(w);
+    errorIfNotExists(v);
+    errorIfNotExists(w);
     return adj.get(v).contains(w);
   }
 
   public Iterable<V> neighbours(V v) {
-    check(v);
+    errorIfNotExists(v);
     return adj.get(v);
   }
 
   public int degree(V v) {
-    check(v);
+    errorIfNotExists(v);
     return adj.get(v).size();
   }
 
@@ -47,9 +47,16 @@ public class AdjacencyList<V> implements Graph<V> {
     return adj.size();
   }
 
-  private void check(V v) {
+  private void addIfNotExists(V v) {
     if (!adj.containsKey(v)) {
       adj.put(v, new LinkedList<V>());
+    }
+  }
+
+  private void errorIfNotExists(V v) {
+    if (!adj.containsKey(v)) {
+      throw new IllegalArgumentException(
+          String.format("Vertex [%s] is not in the graph."));
     }
   }
 }
