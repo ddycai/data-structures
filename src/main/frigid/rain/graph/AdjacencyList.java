@@ -56,7 +56,7 @@ public class AdjacencyList<V> implements Graph<V> {
   private void errorIfNotExists(V v) {
     if (!adj.containsKey(v)) {
       throw new IllegalArgumentException(
-          String.format("Vertex [%s] is not in the graph."));
+          String.format("Vertex [%s] is not in the graph.", v.toString()));
     }
   }
 }

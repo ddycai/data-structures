@@ -48,6 +48,13 @@ public class AdjacencyListTest {
 
     assertFalse(adj.hasEdge(5, 2));
     assertFalse(adj.hasEdge(2, 5));
+
+    try {
+      adj.hasEdge(5, 6);
+      fail("Expected IllegalArgumentException when vertex does not exist.");
+    } catch (IllegalArgumentException e) {
+      // Expected.
+    }
   }
 
   @Test public void testSize() {
@@ -59,9 +66,15 @@ public class AdjacencyListTest {
   @Test public void testDegree() {
     assertEquals(2, adj.degree(1));
     assertEquals(3, adj.degree(2));
-    assertEquals(0, adj.degree(6));
     adj.addEdge(5, 6);
     assertEquals(1, adj.degree(6));
+
+    try {
+      adj.degree(7);
+      fail("Expected IllegalArgumentException when vertex does not exist.");
+    } catch (IllegalArgumentException e) {
+      // Expected.
+    }
   }
 
   @Test public void testNeighbours() {
